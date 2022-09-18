@@ -50,6 +50,7 @@ public class StackIntTest {
 
 	@Test
 	public void testGetMaxNumber() throws Exception {
+		assertThrows(NoSuchElementException.class, () -> stack.getMaxNumber());
 		for (int i = 0; i < number.length; i++) {
 			stack.push(number[i]);
 		}
@@ -59,8 +60,4 @@ public class StackIntTest {
 		assertEquals(3, stack.getMaxNumber());
 	}
 
-	@Test
-	public void testGetMaxNumberFromTheEmptyStack() {
-		assertThrows(NoSuchElementException.class, () -> stack.getMaxNumber());
-	}
 }
