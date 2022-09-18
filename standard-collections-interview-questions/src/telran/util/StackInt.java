@@ -1,5 +1,4 @@
 package telran.util;
-
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
