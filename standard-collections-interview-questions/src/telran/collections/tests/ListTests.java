@@ -1,4 +1,5 @@
 package telran.collections.tests;
+
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class ListTests {
 	Integer[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	List<Integer> list = Arrays.asList(numbers);
-	List<Integer> listMutable;
+	ArrayList<Integer> listMutable;
 
 	@BeforeEach
 	void setUp() {
@@ -38,20 +39,16 @@ class ListTests {
 		subList.clear();
 		assertEquals(2, listMutable.size());
 	}
-	
+
 	@Test
 	void queueTest() {
-		Stack<Integer> stack = new Stack<>();
-		stack.add(1);
-		System.out.println(stack);
-		stack.add(2);
-		System.out.println(stack);
-		stack.add(3);
-		System.out.println(stack);
-		stack.add(1, 10);
-		System.out.println(stack);
-		stack.remove(1);
-		System.out.println(stack);
+//		Stack<Integer> stack = new Stack<>();
+//		stack.add(1);
+//		stack.add(2);
+//		stack.add(3);
+//		stack.add(1, 10);
+//		stack.remove(1);
+
 		Queue<Integer> queue = new LinkedList<>(list);
 		assertEquals(1, queue.remove());
 		Integer[] expected = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -63,5 +60,19 @@ class ListTests {
 		assertFalse(queue.contains(7));
 		listMutable.remove(7);
 		assertTrue(listMutable.contains(7));
+	}
+
+	@Test
+	void removeRepeatedTest() {
+		listMutable.addAll(Arrays.asList(numbers));
+		removeRepeated(listMutable);
+		assertArrayEquals(numbers, listMutable.toArray(Integer[]::new));
+	}
+
+	private void removeRepeated(List<Integer> list) {
+		// TODO Auto-generated method stub
+		// most optimal way for removing the repeated elements
+		// O[N]
+
 	}
 }
