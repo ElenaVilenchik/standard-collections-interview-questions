@@ -3,6 +3,7 @@ package telran.collections.tests;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,9 +71,10 @@ class ListTests {
 	}
 
 	private void removeRepeated(List<Integer> list) {
-		// TODO Auto-generated method stub
-		// most optimal way for removing the repeated elements
-		// O[N]
-
+		Set<Integer> set = new HashSet<>();
+		System.out.println(set);
+		System.out.println(list);
+		list.removeIf(x -> !set.add(x));
+		System.out.println(list);
 	}
 }
