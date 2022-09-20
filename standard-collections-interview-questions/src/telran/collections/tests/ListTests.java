@@ -72,9 +72,6 @@ class ListTests {
 
 	private void removeRepeated(List<Integer> list) {
 		Set<Integer> set = new HashSet<>();
-		System.out.println(set);
-		System.out.println(list);
 		list.removeIf(x -> !set.add(x));
-		System.out.println(list);
 	}
 }
