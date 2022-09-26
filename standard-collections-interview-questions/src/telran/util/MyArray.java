@@ -1,14 +1,25 @@
 package telran.util;
+
+import java.util.HashMap;
+
 /**
  * All methods of the class should have complexity O[1]
+ * 
  * @author User
  *
  * @param <T>
  */
 public class MyArray<T> {
-//TODO fields
+	private final HashMap<Integer, T> array;
+	public final int size;
+
 	public MyArray(int size) {
-		// TODO
+		array = new HashMap<>();
+		this.size = size;
+	}
+
+	public MyArray() {
+		this(0);
 	}
 
 	/**
@@ -17,8 +28,9 @@ public class MyArray<T> {
 	 * @param value
 	 */
 	public void setAll(T value) {
-//		TODO
-//		все элементам массива дает одно и тоже значение
+		for (int i = 0; i < size; i++) {
+			array.put(i, value);
+		}
 	}
 
 	/**
@@ -27,18 +39,21 @@ public class MyArray<T> {
 	 * @return value at given index or null if index is wrong
 	 */
 	public T get(int index) {
-//		TODO
-		return null;
+		final T t = (T) array.get(index);
+		return t;
 	}
 
 	/**
-	 * sets a given value at a given index
-	 * throws IndexOutOfBogunsException in the case of wron index
+	 * sets a given value at a given index throws IndexOutOfBoundsException in the
+	 * case of wrong index
 	 * 
 	 * @param index
 	 * @param value
 	 */
 	public void set(int index, T value) {
-//TODO
+		if (index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		array.put(index, value);
 	}
 }
