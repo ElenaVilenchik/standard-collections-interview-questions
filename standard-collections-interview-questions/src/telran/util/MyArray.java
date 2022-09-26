@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class MyArray<T> {
 	private final HashMap<Integer, T> array;
-	public final int size;
+	private final int size;
 
 	public MyArray(int size) {
 		array = new HashMap<>();
