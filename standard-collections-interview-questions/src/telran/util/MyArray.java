@@ -39,8 +39,8 @@ public class MyArray<T> {
 	 * @return value at given index or null if index is wrong
 	 */
 	public T get(int index) {
-		final T t = (T) array.get(index);
-		return t;
+
+		return array.get(index);
 	}
 
 	/**
