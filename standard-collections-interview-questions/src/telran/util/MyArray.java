@@ -10,16 +10,15 @@ import java.util.HashMap;
  * @param <T>
  */
 public class MyArray<T> {
-	private final HashMap<Integer, T> array;
-	private final int size;
+	public Object[] array;
+	public int size;
+	private HashMap<Integer, T> map;// = new HashMap<>();
+	private T setAllValue = null;
+	private boolean setAllStatus = false;
 
 	public MyArray(int size) {
-		array = new HashMap<>();
+		array = new Object[size];
 		this.size = size;
-	}
-
-	public MyArray() {
-		this(0);
 	}
 
 	/**
@@ -28,9 +27,9 @@ public class MyArray<T> {
 	 * @param value
 	 */
 	public void setAll(T value) {
-		for (int i = 0; i < size; i++) {
-			array.put(i, value);
-		}
+		setAllStatus = true;
+		map = new HashMap<Integer, T>();
+		setAllValue = value;
 	}
 
 	/**
@@ -39,8 +38,12 @@ public class MyArray<T> {
 	 * @return value at given index or null if index is wrong
 	 */
 	public T get(int index) {
-
-		return array.get(index);
+		if (index < 0 || index >= size) {
+			return null;
+		}
+		@SuppressWarnings("unchecked")
+		T res = setAllStatus ? (map.get(index) == null ? setAllValue : map.get(index)) : (T) array[index];
+		return res;
 	}
 
 	/**
@@ -51,9 +54,13 @@ public class MyArray<T> {
 	 * @param value
 	 */
 	public void set(int index, T value) {
-		if (index >= size) {
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		array.put(index, value);
+		if (setAllStatus) {
+			map.put(index, value);
+		}
+		array[index] = value;
 	}
+
 }
