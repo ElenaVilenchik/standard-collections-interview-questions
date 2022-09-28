@@ -12,9 +12,12 @@ import java.util.HashMap;
 public class MyArray<T> {
 	public Object[] array;
 	public int size;
-	private HashMap<Integer, T> map;// = new HashMap<>();
+	private HashMap<Integer, T> map;
 	private T setAllValue = null;
 	private boolean setAllStatus = false;
+
+	public MyArray() {
+	}
 
 	public MyArray(int size) {
 		array = new Object[size];
