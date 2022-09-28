@@ -13,10 +13,8 @@ public class Anagram {
 	 *         anagrams (yello, yelllw)
 	 */
 	public static boolean isAnagram(String word, String anagram) {
-		if (word.length() == anagram.length() && itReallyAnagram(word, anagram)) {
-			return true;
-		}
-		return false;
+
+		return (word.length() == anagram.length() && itReallyAnagram(word, anagram));
 	}
 
 	private static boolean itReallyAnagram(String word, String anagram) {
