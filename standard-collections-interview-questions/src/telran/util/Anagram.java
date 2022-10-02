@@ -7,39 +7,65 @@ public class Anagram {
 	 * 
 	 * @param word
 	 * @param anagram
+	 * @return 
 	 * @return true if anagram is one of the possible anagrams of a given word
 	 *         anagram is a string containing all symbols from a fiven word with
 	 *         different order Example: yellow (wolely, lowlye, yellow), wrong
 	 *         anagrams (yello, yelllw)
 	 */
 
-	//Granovsky
 	public static boolean isAnagram(String word, String anagram) {
 		boolean res = false;
 		if (word.length() == anagram.length()) {
-			HashMap<Character, Integer> mapLetters = getMapLetters(word);
+			HashMap<Character, Integer> mapLetters = new HashMap<>();
+			word.chars().forEach(letter -> mapLetters.merge((char) letter, 1, Integer::sum));
 			res = true;
 			for (char letter : anagram.toCharArray()) {
-				Integer count = mapLetters.getOrDefault(letter, 0);
-				if (count == 0) {
+				Integer count = mapLetters.computeIfPresent(letter, (k, v) -> --v);
+				if (count == null || count < 0) {
 					res = false;
 					break;
 				}
-				mapLetters.put(letter, count - 1);
 			}
+
+//			anagram.chars().forEach(letter -> {
+//				Integer count = mapLetters.computeIfPresent((char) letter, (k, v) -> --v);
+//				if (count == null || count < 0) {
+//					return;
+//				}
+//			});
+
 		}
 		return res;
 	}
 
-	private static HashMap<Character, Integer> getMapLetters(String word) {
-		HashMap<Character, Integer> res = new HashMap<>();
-		for (char letter : word.toCharArray()) {
-			Integer count = res.getOrDefault(letter, 0);
-			res.put(letter, count + 1);
-		}
-		return res;
-	}	
-	
+	// Granovsky
+//	public static boolean isAnagram(String word, String anagram) {
+//		boolean res = false;
+//		if (word.length() == anagram.length()) {
+//			HashMap<Character, Integer> mapLetters = getMapLetters(word);
+//			res = true;
+//			for (char letter : anagram.toCharArray()) {
+//				Integer count = mapLetters.getOrDefault(letter, 0);
+//				if (count == 0) {
+//					res = false;
+//					break;
+//				}
+//				mapLetters.put(letter, count - 1);
+//			}
+//		}
+//		return res;
+//	}
+//
+//	private static HashMap<Character, Integer> getMapLetters(String word) {
+//		HashMap<Character, Integer> res = new HashMap<>();
+//		for (char letter : word.toCharArray()) {
+//			Integer count = res.getOrDefault(letter, 0);
+//			res.put(letter, count + 1);
+//		}
+//		return res;
+//	}	
+
 //	public static boolean isAnagram(String word, String anagram) {
 //
 //		return (word.length() == anagram.length() && itReallyAnagram(word, anagram));
