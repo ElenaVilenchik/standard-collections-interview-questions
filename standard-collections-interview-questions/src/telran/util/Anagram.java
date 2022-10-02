@@ -27,14 +27,6 @@ public class Anagram {
 					break;
 				}
 			}
-
-//			anagram.chars().forEach(letter -> {
-//				Integer count = mapLetters.computeIfPresent((char) letter, (k, v) -> --v);
-//				if (count == null || count < 0) {
-//					return;
-//				}
-//			});
-
 		}
 		return res;
 	}
