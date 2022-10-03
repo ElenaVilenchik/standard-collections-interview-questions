@@ -13,7 +13,8 @@ public class Anagram {
 	 *         different order Example: yellow (wolely, lowlye, yellow), wrong
 	 *         anagrams (yello, yelllw)
 	 */
-
+	
+	// granovsky
 	public static boolean isAnagram(String word, String anagram) {
 
 		if (word.length() != anagram.length()) {
@@ -23,15 +24,32 @@ public class Anagram {
 
 		word.chars().forEach(letter -> mapLetters.merge((char) letter, 1, Integer::sum));
 
-		anagram.chars().forEach(letter -> {
-			Integer count = mapLetters.computeIfPresent((char) letter, (k, v) -> --v);
-			if (count == null || count < 0) {
-				mapLetters.clear();
-				return;
+		for (char letter : anagram.toCharArray()) {
+			if (mapLetters.compute(letter, (k, v) -> v == null ? -1 : --v) < 0) {
+				return false;
 			}
-		});
-		return !mapLetters.isEmpty();
+		}
+		return true;
 	}
+	
+//	public static boolean isAnagram(String word, String anagram) {
+//
+//		if (word.length() != anagram.length()) {
+//			return false;
+//		}
+//		HashMap<Character, Integer> mapLetters = new HashMap<>();
+//
+//		word.chars().forEach(letter -> mapLetters.merge((char) letter, 1, Integer::sum));
+//
+//		anagram.chars().forEach(letter -> {
+//			Integer count = mapLetters.computeIfPresent((char) letter, (k, v) -> --v);
+//			if (count == null || count < 0) {
+//				mapLetters.clear();
+//				return;
+//			}
+//		});
+//		return !mapLetters.isEmpty();
+//	}
 
 	// Granovsky
 //	public static boolean isAnagram(String word, String anagram) {
@@ -85,5 +103,4 @@ public class Anagram {
 //		}
 //		return res;
 //	}
-
 }
