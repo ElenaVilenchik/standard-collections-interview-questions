@@ -1,25 +1,21 @@
 package telran.collections.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.DynamicTest.stream;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.StringJoiner;
-import java.util.TreeMap;
+
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // one to one is map
 // one to many  is flatMap
-// mane to one is collect
+// many to one is collect
 
 class Java8StreamTests {
 	static class Programmer {
@@ -41,6 +37,8 @@ class Java8StreamTests {
 			return technologies;
 		}
 	}
+
+	private static final long N_NUMBERS = 1_000_000;
 
 	List<Programmer> programmers;
 	String[] technologies1 = { "Java", "SQL", "C++" };
@@ -71,8 +69,7 @@ class Java8StreamTests {
 	private Object getMostPopularTechnology() {
 		return programmers.stream().flatMap(p -> Arrays.stream(p.getTechnolgies()))
 				.collect(Collectors.groupingBy(t -> t, Collectors.counting())).entrySet().stream()
-				.sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-				.map(Map.Entry<String, Long>::getKey)
+				.sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue())).map(Map.Entry<String, Long>::getKey)
 				.findFirst().orElse(null);
 	}
 
@@ -108,15 +105,27 @@ class Java8StreamTests {
 				num /= 10;
 			}
 		});
-		
+
 		HashMap<Integer, Long> mapDigits = new HashMap<>(10);
 		for (int i = 0; i < 10; i++) {
 			mapDigits.put(i, digitCounts[i]);
 		}
 		// IntStream.range(0, 10).forEach(i -> mapDigits.put(i, digitCounts[i]));
 
-		mapDigits.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+		mapDigits.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue())// .reversed())
 				// .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
 				.forEach(x -> System.out.printf("%d : %d\n", x.getKey(), x.getValue()));
 	}
+	
+	//Granovsky, very slowly IMXO
+//	@Test
+//	void printDigitOccurences() {
+//		
+//		new Random().ints(N_NUMBERS, 0, Integer.MAX_VALUE)
+//		.mapToObj(Integer::toString).flatMapToInt(String::chars)
+//		.boxed()//.mapToObj(n->n)
+//		.collect(Collectors.groupingBy(n->n,Collectors.counting()))
+//		.entrySet().stream().sorted((e1,e2)->Long.compare(e2.getValue(), e1.getValue()))
+//		.forEach(e->System.out.printf("%c : %d\n", e.getKey(), e.getValue()));
+//	}
 }
