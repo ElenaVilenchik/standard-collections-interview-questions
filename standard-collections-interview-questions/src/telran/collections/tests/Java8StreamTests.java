@@ -69,9 +69,6 @@ class Java8StreamTests {
 	}
 
 	private Object getMostPopularTechnology() {
-		for(String s:technologies1) {
-			System.out.println(s);
-		}
 		return programmers.stream().flatMap(p -> Arrays.stream(p.getTechnolgies()))
 				.collect(Collectors.groupingBy(t -> t, Collectors.counting())).entrySet().stream()
 				.sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
@@ -89,60 +86,37 @@ class Java8StreamTests {
 		return Arrays.stream(ar).flatMapToInt(a -> Arrays.stream(a)).asLongStream().sum();
 	}
 
+	private int MIN_VALUE = 0;
+	private int MAX_VALUE = Integer.MAX_VALUE;
+	private long N_RUNS = 1_000_000;
+
 	@Test
 	void printDigitOccurences() {
 
 //	generate 1_000_000 random numbers from 0 to Integer.MAX_VALUE
-		// print digits occurrence in descending order of occurrences
+// print digits occurrence in descending order of occurrences
 //	1: <occurrences>
 //	2:...
 //	...
-		
-		
-//		int[] ar = IntStream.generate(() -> new Random().nextInt(Integer.MAX_VALUE)).limit(10).toArray();
-//	
-//		String joinedString = Arrays.toString(ar);
-//		Map<Integer, Integer> res = new HashMap<>();
-//		 Arrays.stream(joinedString.split(", "))
-//			    .filter((s) -> s.matches("\\d+"))
-//			    .collect(Collectors.groupingBy(t -> t, Collectors.counting())).entrySet().stream()
-//				.sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue())).filter(e -> e.getKey())
-//		  .map(Map.Entry::getValue)
-//				.forEach(System.out::println); 
+//  Algorithm by Maria Disin - sequential array instead of parallel stream
 
+		long[] digitCounts = new long[10];
+		new Random().ints(N_RUNS, MIN_VALUE, MAX_VALUE).forEach(num -> {
+			while (num > 0) {
+				int digit = num % 10;
+				++digitCounts[digit];
+				num /= 10;
+			}
+		});
 		
-		
-//		String[] strToArray=Arrays.toString(ar)
-//		IntStream intStream = joinedString.chars();
-//		Stream<String> streamOfArray = Arrays.stream(strToArray);
-//		
-//		intStream.flatMap(p -> Arrays.stream(strToArray))
-//			.collect(Collectors.groupingBy(t -> t, Collectors.counting())).entrySet().stream()
-//				.sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue())).filter(e -> e.getKey())
-//		  .map(Map.Entry::getValue)
-//				.forEach(System.out::println);
-		
-		
-		int[] arr = IntStream.generate(() -> new Random().nextInt(Integer.MAX_VALUE)).limit(1_000_000).toArray();
-
-		Map<Integer, Integer> res = new HashMap<>();
-		for (int val : arr) {
-			do {
-				res.compute(val % 10, (k, v) -> v == null ? 1 : v + 1);
-				val /= 10;
-			} while (val > 0);
+		HashMap<Integer, Long> mapDigits = new HashMap<>(10);
+		for (int i = 0; i < 10; i++) {
+			mapDigits.put(i, digitCounts[i]);
 		}
-		res.entrySet().stream().sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-				.forEach(System.out::println);
+		// IntStream.range(0, 10).forEach(i -> mapDigits.put(i, digitCounts[i]));
 
-
-//		IntStream.range(0, Integer.MAX_VALUE).flatMap(a->Arrays.stream())
-//	.iterate(num, i -> i / 10 > 0 || i % 10 > 0, i -> i / 10)
-//		.limit(1_000_000)
-//    .map(i -> i % 10)
-//   
-//	collect(Collectors.groupingBy(t -> t, Collectors.counting())).entrySet().stream()
-//	.sorted((e1, e2) ->Integer.compare(e2.getValue(), e1.getValue())
-//	.forEach(System.out::println));	
+		mapDigits.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+				// .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+				.forEach(x -> System.out.printf("%d : %d\n", x.getKey(), x.getValue()));
 	}
 }
