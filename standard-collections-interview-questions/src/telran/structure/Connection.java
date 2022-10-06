@@ -1,5 +1,6 @@
 package telran.structure;
 
+
 public class Connection {
 int id;
 String ipAddress;

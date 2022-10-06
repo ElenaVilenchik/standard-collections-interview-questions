@@ -1,5 +1,6 @@
 package telran.structure;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;

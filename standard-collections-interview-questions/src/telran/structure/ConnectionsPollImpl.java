@@ -1,5 +1,6 @@
 package telran.structure;
 
+
 import java.util.*;
 
 public class ConnectionsPollImpl implements ConnectionsPool {
