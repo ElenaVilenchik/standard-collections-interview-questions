@@ -35,4 +35,5 @@ public interface MultiCounters {
 	 * @return set of items with maximal counters
 	 */
 	Set<Object> getMaxItems();
+	
 }

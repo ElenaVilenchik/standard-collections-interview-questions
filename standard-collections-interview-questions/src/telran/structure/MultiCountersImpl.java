@@ -39,5 +39,4 @@ public class MultiCountersImpl implements MultiCounters {
 	public Set<Object> getMaxItems() {
 		return counters.get(counters.lastKey());
 	}
-
 }
