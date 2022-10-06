@@ -13,9 +13,9 @@ public interface ConnectionsPool {
 	/**
 	 * 
 	 * @param id
-	 * @return
+	 * @return Connection if exists otherwise null moves the connection to beginning
+	 *         of Connection Pool
 	 */
 	Connection getConnection(int id);
-	
-	
+
 }

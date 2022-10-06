@@ -1,9 +1,8 @@
 package telran.structure;
 
-
 import java.util.*;
 
-public class ConnectionsPollImpl implements ConnectionsPool {
+public class ConnectionsPoollImpl implements ConnectionsPool {
 	static class Node {
 
 		Connection connection;
@@ -34,7 +33,7 @@ public class ConnectionsPollImpl implements ConnectionsPool {
 			}
 		}
 
-		void removeNode(Node nodeConnection) {
+		public void removeNode(Node nodeConnection) {
 			if (nodeConnection == tail) {
 				removeTail();
 			} else {
@@ -50,7 +49,7 @@ public class ConnectionsPollImpl implements ConnectionsPool {
 	int connectionsPoolLimit;
 	ListConnections listConnections = new ListConnections();
 
-	public ConnectionsPollImpl(int connectionsPoolLimit) {
+	public ConnectionsPoollImpl(int connectionsPoolLimit) {
 		this.connectionsPoolLimit = connectionsPoolLimit;
 	}
 
@@ -93,6 +92,4 @@ public class ConnectionsPollImpl implements ConnectionsPool {
 			listConnections.addHead(nodeConnection);
 		}
 	}
-
-	
 }
