@@ -3,13 +3,9 @@ package telran.collections.tests;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-class ArrayTests {
+ class ArrayTests {
 
 	@Test
 	void halfSum() {
@@ -119,4 +115,73 @@ class ArrayTests {
 //
 //		return set.stream().filter(x -> set.contains(-x)).max(Integer::compare).orElse(-1);
 //	}
+	
+	/**
+	 * The method doesn't update a given array
+	 * 
+	 * @param <T>
+	 * @param array 
+	 * examples: 
+	 * {1,2,3,10,-1,5,6} -> false 
+	 * {1,2,3,5,6,10} -> false
+	 * {1,3,2,4,3,10} -> false 
+	 * {10,2,3,4,1} -> true 
+	 * {1,2,4,3,5,10} -> true
+	 * {1,5,3,4,2,10} -> true  
+	 *  {"lmn", "ab", "bc", "cd","a"} -> true
+	 *  An Array should contain Comparable elements
+	 * @return true if there is exactly one swap for getting sorted array
+	 */
+	@Test
+	void isOneSwapTest() {
+		Integer ar1[] = { 1, 2, 3, 10, -1, 5, 6 };
+		Integer ar2[] = { 1, 2, 3, 5, 6, 10 };
+		Integer ar3[] = { 1, 5, 2, 4, 3, 10 };
+		Integer ar4[] = { 1, 3, 2, 5, 4, 10, 8 };
+		Integer ar5[] = { 10, 2, 3, 4, 1 };
+		Integer ar6[] = { 1, 2, 4, 3, 5, 10 };
+		Integer ar7[] = { 1, 5, 3, 4, 2, 10 };
+		String ar8[] = { "lmn", "ab", "bc", "cd", "a" };
+
+		assertFalse(isOneSwapForSorted(ar1));
+		assertFalse(isOneSwapForSorted(ar2));
+		assertFalse(isOneSwapForSorted(ar3));
+		assertFalse(isOneSwapForSorted(ar4));
+		assertTrue(isOneSwapForSorted(ar5));
+		assertTrue(isOneSwapForSorted(ar6));
+		assertTrue(isOneSwapForSorted(ar7));
+		assertTrue(isOneSwapForSorted(ar8));
+	}
+
+	@SuppressWarnings("unchecked")
+	<T> boolean isOneSwapForSorted(T[] array) {
+		int count = 0, first = 0, second = 0;
+
+		for (int i = 1; i < array.length; i++) {
+			if (((Comparable<T>) array[i]).compareTo(array[i - 1]) < 0) {
+				count++;
+				if (count > 2) {
+					return false;
+				}
+				if (first == 0) {
+					first = i;
+				} else {
+					second = i;
+				}
+			}
+		}
+		return count == 0 ? false : checkCount(array, count, first, second);
+	}
+
+	private <T> boolean checkCount(T[] array, int count, int first, int second) {
+
+		return count == 1 ? finalArrayCheck(array, first - 2, first) : finalArrayCheck(array, second, first);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> boolean finalArrayCheck(T[] array, int index1, int index2) {
+
+		return ((Comparable<T>) array[index1]).compareTo(array[index2]) < 0 ? true : false;
+	}
+
 }
