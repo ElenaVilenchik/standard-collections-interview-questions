@@ -157,12 +157,11 @@ class ArrayTests {
 		assertTrue(isOneSwapForSorted(ar13));
 	}
 
-	@SuppressWarnings("unchecked")
 	<T> boolean isOneSwapForSorted(T[] array) {
 		int count = 0, first = 0, second = 0;
 
 		for (int i = 1; i < array.length; i++) {
-			if (((Comparable<T>) array[i]).compareTo(array[i - 1]) < 0) {
+			if (arrayCheck(array, i, i - 1)) {
 				count++;
 				if (count > 2) {
 					return false;
@@ -180,12 +179,12 @@ class ArrayTests {
 	private <T> boolean checkCount(T[] array, int count, int first, int second) {
 
 		return count == 1
-				? (first == 1) ? finalArrayCheck(array, first, first - 1) : finalArrayCheck(array, first - 2, first)
-				: finalArrayCheck(array, second, first);
+				? (first == 1) ? arrayCheck(array, first, first - 1) : arrayCheck(array, first - 2, first)
+				: arrayCheck(array, second, first);
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> boolean finalArrayCheck(T[] array, int index1, int index2) {
+	private <T> boolean arrayCheck(T[] array, int index1, int index2) {
 
 		return ((Comparable<T>) array[index1]).compareTo(array[index2]) < 0 ? true : false;
 	}
