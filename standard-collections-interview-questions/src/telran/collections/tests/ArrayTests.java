@@ -134,11 +134,13 @@ class ArrayTests {
 		Integer ar4[] = { 1, 3, 2, 5, 4, 10, 8 };
 		Integer ar5[] = { 10, 2, 3, 4, 1 };
 		Integer ar6[] = { 1, 2, 4, 3, 5, 10 };
-		Integer ar06[] = { 1, 2, 3, 10, 5, 4 };
-		Integer ar7[] = { 1, 5, 3, 4, 2, 10 };
-		Integer ar8[] = { 1, 2, 3, 4, 10, 5 };
-		Integer ar9[] = { 2, 1, 3, 4, 5, 10 };
-		String ar10[] = { "lmn", "ab", "bc", "cd", "a" };
+		Integer ar7[] = { 1, 2, 3, 10, 5, 4 };
+		Integer ar8[] = { 1, 5, 3, 4, 2, 10 };
+		Integer ar9[] = { 1, 2, 3, 4, 10, 5 };
+		Integer ar10[] = { 2, 1, 3, 4, 5, 10 };
+		Integer ar11[] = { 1, 2, 3, 10, 5, 4 };
+		Integer ar12[] = { 3, 2, 1, 4, 5, 6 };
+		String ar13[] = { "lmn", "ab", "bc", "cd", "a" };
 
 		assertFalse(isOneSwapForSorted(ar1));
 		assertFalse(isOneSwapForSorted(ar2));
@@ -146,11 +148,13 @@ class ArrayTests {
 		assertFalse(isOneSwapForSorted(ar4));
 		assertTrue(isOneSwapForSorted(ar5));
 		assertTrue(isOneSwapForSorted(ar6));
-		assertTrue(isOneSwapForSorted(ar06));
 		assertTrue(isOneSwapForSorted(ar7));
 		assertTrue(isOneSwapForSorted(ar8));
 		assertTrue(isOneSwapForSorted(ar9));
 		assertTrue(isOneSwapForSorted(ar10));
+		assertTrue(isOneSwapForSorted(ar11));
+		assertTrue(isOneSwapForSorted(ar12));
+		assertTrue(isOneSwapForSorted(ar13));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,10 +168,10 @@ class ArrayTests {
 					return false;
 				}
 				if (first == 0) {
-					first = i;System.out.println(first);
+					first = i;
 				} else {
 					second = i;
-				}System.out.println(count);
+				}
 			}
 		}
 		return count == 0 ? false : checkCount(array, count, first, second);
