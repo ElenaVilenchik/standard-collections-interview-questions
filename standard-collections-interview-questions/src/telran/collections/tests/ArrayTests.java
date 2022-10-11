@@ -129,7 +129,8 @@ class ArrayTests {
 	@Test
 	void isOneSwapTest() {
 		Integer ar1[] = { 1, 2, 3, 10, -1, 5, 6 };
-		Integer ar2[] = { 1, 2, 3, 5, 6, 10 };
+		Integer ar2[] = { 1, 2, 3, 4, 5, 10 };
+		Integer ar20[] = { 5, 1, 2, 4, 6, 10 };
 		Integer ar3[] = { 1, 5, 2, 4, 3, 10 };
 		Integer ar4[] = { 1, 3, 2, 5, 4, 10, 8 };
 		Integer ar5[] = { 10, 2, 3, 4, 1 };
@@ -137,13 +138,16 @@ class ArrayTests {
 		Integer ar7[] = { 1, 2, 3, 10, 5, 4 };
 		Integer ar8[] = { 1, 5, 3, 4, 2, 10 };
 		Integer ar9[] = { 1, 2, 3, 4, 10, 5 };
-		Integer ar10[] = { 2, 1, 3, 4, 5, 10 };
+		Integer ar10[] = { 2, 1, -3, 4, 5, 10 };
+		Integer ar100[] = { 1, 2, 4, 3, 5, 10 };
+		Integer ar1000[] = { 1, 2, 3, 4, 10, 5 };
 		Integer ar11[] = { 1, 2, 3, 10, 5, 4 };
 		Integer ar12[] = { 3, 2, 1, 4, 5, 6 };
 		String ar13[] = { "lmn", "ab", "bc", "cd", "a" };
 
 		assertFalse(isOneSwapForSorted(ar1));
 		assertFalse(isOneSwapForSorted(ar2));
+		assertFalse(isOneSwapForSorted(ar20));
 		assertFalse(isOneSwapForSorted(ar3));
 		assertFalse(isOneSwapForSorted(ar4));
 		assertTrue(isOneSwapForSorted(ar5));
@@ -152,6 +156,8 @@ class ArrayTests {
 		assertTrue(isOneSwapForSorted(ar8));
 		assertTrue(isOneSwapForSorted(ar9));
 		assertTrue(isOneSwapForSorted(ar10));
+		assertTrue(isOneSwapForSorted(ar100));
+		assertTrue(isOneSwapForSorted(ar1000));
 		assertTrue(isOneSwapForSorted(ar11));
 		assertTrue(isOneSwapForSorted(ar12));
 		assertTrue(isOneSwapForSorted(ar13));
@@ -178,8 +184,7 @@ class ArrayTests {
 
 	private <T> boolean checkCount(T[] array, int count, int first, int second) {
 
-		return count == 1
-				? (first == 1) ? arrayCheck(array, first, first - 1) : arrayCheck(array, first - 2, first)
+		return count == 1 ? (first == 1) ? arrayCheck(array, first - 1, first + 1) : arrayCheck(array, first - 2, first)
 				: arrayCheck(array, second, first);
 	}
 
