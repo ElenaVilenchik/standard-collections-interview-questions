@@ -128,6 +128,9 @@ class ArrayTests {
 	 */
 	@Test
 	void isOneSwapTest() {
+	
+		//Integer ar21[] = {1, 3, 20, 4, 5, 11, 2};
+		Integer ar31[] = {1, 3, 20, 4, 5, 6, 10};
 		Integer ar1[] = { 1, 2, 3, 10, -1, 5, 6 };
 		Integer ar2[] = { 1, 2, 3, 4, 5, 10 };
 		Integer ar20[] = { 5, 1, 2, 4, 6, 10 };
@@ -140,12 +143,13 @@ class ArrayTests {
 		Integer ar9[] = { 1, 2, 3, 4, 10, 5 };
 		Integer ar10[] = { 2, 1, -3, 4, 5, 10 };
 		Integer ar100[] = { 1, 2, 4, 3, 5, 10 };
-		Integer ar1000[] = { 1, 2, 3, 4, 10, 5 };
 		Integer ar11[] = { 1, 2, 3, 10, 5, 4 };
 		Integer ar12[] = { 3, 2, 1, 4, 5, 6 };
 		String ar13[] = { "lmn", "ab", "bc", "cd", "a" };
 
 		assertFalse(isOneSwapForSorted(ar1));
+	//	assertFalse(isOneSwapForSorted(ar21));
+		assertFalse(isOneSwapForSorted(ar31));
 		assertFalse(isOneSwapForSorted(ar2));
 		assertFalse(isOneSwapForSorted(ar20));
 		assertFalse(isOneSwapForSorted(ar3));
@@ -157,7 +161,6 @@ class ArrayTests {
 		assertTrue(isOneSwapForSorted(ar9));
 		assertTrue(isOneSwapForSorted(ar10));
 		assertTrue(isOneSwapForSorted(ar100));
-		assertTrue(isOneSwapForSorted(ar1000));
 		assertTrue(isOneSwapForSorted(ar11));
 		assertTrue(isOneSwapForSorted(ar12));
 		assertTrue(isOneSwapForSorted(ar13));
@@ -183,16 +186,28 @@ class ArrayTests {
 	}
 
 	private <T> boolean checkCount(T[] array, int count, int first, int second) {
+		return count == 1 ? replacement1(array, first) : replacement2(array, first, second);
+	}
 
-		return count == 1 ? (first == 1) ? arrayCheck(array, first - 1, first + 1) : arrayCheck(array, first - 2, first)
-				: arrayCheck(array, second, first);
+	private <T> boolean replacement2(T[] array, int first, int second) {
+		return arrayCheck(array, second, first);
+	}
+
+	private <T> boolean replacement1(T[] array, int first) {
+		boolean res;
+		if (first == 1) {
+			res = arrayCheck(array, first - 1, first + 1);
+		} else if (first == array.length - 1) {
+			res = arrayCheck(array, first - 2, first);
+		} else {
+			res = arrayCheck(array, first - 2, first) && arrayCheck(array, first - 1, first + 1);
+		}
+		return res;
 	}
 
 	@SuppressWarnings("unchecked")
 	private <T> boolean arrayCheck(T[] array, int index1, int index2) {
-
-		return ((Comparable<T>) array[index1]).compareTo(array[index2]) < 0 ? true : false;
+		return ((Comparable<T>) array[index1]).compareTo(array[index2]) <= 0;
 	}
 
-	
 }
